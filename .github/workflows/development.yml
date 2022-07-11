@@ -1,0 +1,70 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy to Salesforce Pipeline
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build-on-merge:
+    if: startsWith(github.event.head_commit.message, 'Merge pull request')  
+  
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  # This workflow contains a single job called "build"
+    # The type of runner that the job will run on
+
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    
+    
+
+    # Setup Node
+    - name: Setup Node
+      uses: actions/setup-node@v2
+    - name: 'Read PR Body'
+      env:
+          PR_BODY: ${{github.event.pull_request.body}}
+      run: |
+            TESTS=$(cat config.txt)  
+            echo ${{env.APEX_TESTS}}
+            echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV  
+    # Install SFDX CLI
+    - name: Install SFDX CLI
+      run: npm install sfdx-cli --global
+
+    # Authorize SF Org
+    - name: Authorize SF Org
+      env:
+        CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
+        USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
+        INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
+      run: sfdx force:auth:jwt:grant --clientid $CLIENT_ID --jwtkeyfile buildfiles/server.key --username $USERNAME --instanceurl $INSTANCE_URL -a smrhelpdesk95@mindful-panda-dhqpqv.com
+         
+    # Deploy    
+    - name: 'Check-only deploy delta changes - run specified tests'
+      if: ${{ env.APEX_TESTS != 'all' }}
+      run: |
+          echo ${{env.APEX_TESTS}}
+          sfdx force:source:convert --rootdir deployment --outputdir tmp_convert
+          zip -r winter19.zip tmp_convert
+          sfdx force:mdapi:deploy --zipfile winter19.zip -u awesome-appy-17848-dev-ed -w 5 --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --targetusername abhishek@gla.com
+    - name: 'empty directory' 
+      run: |
+        git config --global user.email "sahmad@kloudrac.com"
+        git config --global user.name "samirkloudrac"
+        git clone https://samirkloudrac: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@github.com/samirkloudrac/SFDevOps
+
+        cd SFDevOps/deployment/
+        rm -f *
+        cd ..
+        git add .
+        git commit -m "Committed from Github Actions"
+        git push origin HEAD:main
