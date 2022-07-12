@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
     types: [opened, synchronize]
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
       - name: List all changed files
         run: |
           git clone https://samirkloudrac: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@github.com/samirkloudrac/SFDevOps
-          cd aol
+          cd SFDevOps
           git checkout development
           mkdir -p deployment
           cp "manifest/package.xml" "deployment/"
