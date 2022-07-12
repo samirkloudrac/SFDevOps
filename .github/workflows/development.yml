@@ -6,7 +6,7 @@ name: Deploy to Salesforce Pipeline
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 jobs:
   build-on-merge:
     if: startsWith(github.event.head_commit.message, 'Merge pull request')  
@@ -55,7 +55,7 @@ jobs:
           echo ${{env.APEX_TESTS}}
           sfdx force:source:convert --rootdir deployment --outputdir tmp_convert
           zip -r winter19.zip tmp_convert
-          sfdx force:mdapi:deploy --zipfile winter19.zip -u awesome-appy-17848-dev-ed -w 5 --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --targetusername abhishek@gla.com
+          sfdx force:mdapi:deploy --zipfile winter19.zip -u awesome-appy-17848-dev-ed -w 5 --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --targetusername smrhelpdesk95@mindful-panda-dhqpqv.com
     - name: 'empty directory' 
       run: |
         git config --global user.email "sahmad@kloudrac.com"
