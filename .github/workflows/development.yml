@@ -55,7 +55,7 @@ jobs:
           echo ${{env.APEX_TESTS}}
           sfdx force:source:convert --rootdir deployment --outputdir tmp_convert
           zip -r winter19.zip tmp_convert
-          sfdx force:mdapi:deploy --zipfile winter19.zip -u awesome-appy-17848-dev-ed -w 5 --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --targetusername smrhelpdesk95@mindful-panda-dhqpqv.com
+          sfdx force:mdapi:deploy --zipfile winter19.zip -u mindful-panda-dhqpqv-dev-ed -w 5 --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --targetusername smrhelpdesk95@mindful-panda-dhqpqv.com
     - name: 'empty directory' 
       run: |
         git config --global user.email "sahmad@kloudrac.com"
