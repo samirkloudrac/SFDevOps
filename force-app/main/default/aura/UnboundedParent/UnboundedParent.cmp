@@ -1,0 +1,7 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="parentVar" type="string" default="Parent value"/>
+    <c:UnboundedChild childVar="{#v.parentVar}"/>
+    <hr/>
+    Parent Value:{!v.parentVar}<br/>
+    <lightning:button label="Update parent var" onclick="{!c.updateParentVar}"/>
+</aura:component>

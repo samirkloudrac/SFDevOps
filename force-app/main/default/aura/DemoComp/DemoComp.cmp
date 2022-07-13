@@ -1,0 +1,32 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+                       
+<aura:attribute name="var1" type="String" default="Test Value"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="newAcc" type="Account" default="{'sobjecttype':'Account','Name':'TestAcc1'}"/>
+    <aura:attribute name="arrayDemo" type="String[]" default= "v1,v2,v3"/>
+    <aura:attribute name="listDemo" type="List" default="List1,List2,List3"/>
+    <aura:attribute name="setDemo" type="Set" default="s1,s2,s3,s5"/>
+    <aura:attribute name="mapDemo" type="Map" default="{a:'Map1',b:'Map2',c:'Map3'}"/>
+    <aura:attribute name="jsobject" type="object"/>
+    <aura:attribute name="userData" type="DemoCompWrapper.wrapperTest"/>
+    
+    <h1> wrapper data:{!v.userData.myString1}--{!v.userData.myInteger1}</h1>
+    <hr/>
+    <h1>jsobject Name: {!v.jsobject.name} email- {!v.jsobject.Email}</h1>
+    <hr/>
+    <h1> Map values:{!v.mapDemo.b}</h1>
+    Length of map is: {!v.mapDemo.length}
+    <hr/>
+    <h1>Set values:{!v.setDemo[3]}</h1>
+    <hr/>
+    <h1>List values:{!v.listDemo[1]}</h1>
+		length of list:{!v.listDemo.length}   
+    <hr/>
+    <h1>Array values:{!v.arrayDemo[0]} {!v.arrayDemo[1]}</h1>
+    <h1>{!v.newAcc.Name} </h1>
+    <h2> Demo of variable:{!v.var1}</h2>
+    <p>My first Lightning Component</p>
+   
+
+  
+</aura:component>

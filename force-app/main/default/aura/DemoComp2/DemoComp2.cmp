@@ -1,0 +1,10 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="message" type="string"/>
+    <aura:attribute name="Number" type="integer"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <h1><span>Hey i am here:{!v.Number}</span> </h1>
+    <lightning:button label="Clicmetoo" onclick="{!c.anotherhandleClick}"/><br/><br/>
+     <h1><span>Hey i am here:{!v.message}</span> </h1>	
+	 <lightning:button label="clickme" onclick="{!c.handleClick}"/>
+</aura:component>

@@ -1,0 +1,52 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+   
+    <c:campingHeader/>
+    <c:campingList/>
+
+    <aura:attribute name="message" type="string"/>
+    <p> Message of the day  is:{!v.message}</p>
+    <div>
+        <lightning:button label="Have a nice day" onclick="{!c.handleClick}"/>
+    
+    </div>
+
+    
+    
+    <aura:attribute name="expense" type="Expense__c"/>
+    <p>Amount:
+        <lightning:formattedNumber value="{!v.expense.Amount__c}" style="currency"/>
+    </p>
+    <p>
+        Client: {!v.expense.Client__c}
+    </p>
+    <p>
+        <lightning:input type="toggle"
+                         label="Reimbursed?"
+                         name="reimbursed"
+                         checked="{!v.expense.Reimbursed__c}" />
+     </p>
+    
+    
+      <aura:attribute name="messages" type="List"
+        default="['You look nice today.',
+            'Great weather we\'re having.',
+            'How are you?']"/>
+    <h1>Hello Playground</h1>
+    <p>Silly fun with attributes and expressions.</p>
+    <h2>List Items</h2>
+    <p> message="{!v.messages[0]}"/></p>
+    <p> message="{!v.messages[1]}"/></p>
+    <p> message="{!v.messages[2]}"/></p>
+    <h2>List Iteration</h2>
+    <aura:iteration items="{!v.messages}" var="msg">
+        <p>helloMessage message="{!msg}"/></p>
+    </aura:iteration>
+    <h2>Conditional Expressions and Global Value Providers</h2>
+    <aura:if isTrue="{!$Browser.isIPhone}">
+        <p> message="{!v.messages[0]}"/></p>
+    <aura:set attribute="else">
+        <p> message="{!v.messages[1]}"/></p>
+        </aura:set>
+    </aura:if>
+   
+</aura:component>

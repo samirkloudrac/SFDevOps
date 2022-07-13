@@ -1,0 +1,38 @@
+<aura:component controller="AuraTaskController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="Company1" type="string"/>
+    <aura:attribute name="FirstName1" type="string"/>
+    <aura:attribute name="LastName1" type="string"/>
+    <aura:attribute name="OpportunityName" type="string"/>
+    <aura:attribute name="Lead" type="Lead[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.abc}"/>
+    
+    <lightning:accordion aura:id="accordion" activeSectionName="B">
+        <lightning:accordionSection name="A" label="Account">
+            <div style="margin:0 120px">
+                <h2>Create New</h2>
+                <lightning:input name="Account Name" label="Account Name" value="{!v.Company1}" placeholder="Enter Name" required="true"/>
+            </div>
+            
+            
+        </lightning:accordionSection>
+        <lightning:accordionSection name="B" label="Contact">
+          <div style="margin:0 120px">
+                <h2>Create New</h2>
+                <lightning:input name="Contact Name" label="First Name" value="{!v.FirstName1}" placeholder="Enter first Name" />
+              <lightning:input name="Contact Name" label="Last Name" value="{!v.LastName1}" placeholder="Enter Last Name" required="true"/>
+            </div>
+        </lightning:accordionSection>
+        <lightning:accordionSection name="C" label="Opportunity">
+            <div style="margin:0 120px">
+                <h2>Create New</h2>
+                <lightning:input name="Opportunity Name" label="Opportunity Name" value="{!v.OpportunityName}" required="true"/>
+            </div>
+        </lightning:accordionSection>
+    </lightning:accordion>    
+      <div style= "text-align: right "  >
+          <lightning:button variant="brand-outline" label="Cancel" title="Brand action" onclick="{! c.handleCancel }" />
+           <lightning:button variant="brand" label="Convert" title="Brand action" onclick="{! c.handleClick }" />
+    </div>
+   
+</aura:component>
